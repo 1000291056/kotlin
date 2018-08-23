@@ -19,4 +19,12 @@ abstract class Person public constructor(age: Int, name: String) {
     open fun doString(thing: String) {
         println("Person I do $thing")
     }
+
+    operator fun component1(): Int {
+        return pAge
+    }
+
+    operator fun component2(): String {
+        return pName
+    }
 }

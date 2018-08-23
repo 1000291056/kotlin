@@ -4,11 +4,106 @@ fun main(args: Array<String>) {
     for (name in names) {
         println(name)
     }
+    var map = hashMapOf<String, Student>();
+    map.put("1", Student(1, "1"))
+    map.put("2", Student(3, "2"))
+    for (m in map) {
+        println("map :" + m)
+    }
+    for ((key, value) in map) {
+        println("map :" + "key is $key" + "   value is " + value)
+    }
     aboutWhen()
     aboutIf()
     aboutFastSkip()
     aboutClass()
+    aboutInterface(object : Listener {
+        override fun OnListener(msg: String) {
+            println("msg::::")
+        }
+    })
+    aboutInterface { msg: String ->
+        println(msg)
+    }
+    aboutHighFun {
+        "Hello high fun"
+    }
+    aboutExtent(D(""))
+    aboutDataObject()
+    aboutObjectExp(object : Person(1, "A"), Listener {
+        override fun say(msg: String) {
+            println("aboutObjectExp Person say:" + msg)
+        }
 
+        override fun OnListener(msg: String) {
+            println("aboutObjectExp OnListener:" + msg)
+        }
+
+    })
+    aboutMultipleDeclarations()
+    aboutNUllSafe()
+}
+
+/**
+ * 空安全
+ */
+fun aboutNUllSafe() {
+    var str: String? = null
+}
+
+//多重申明
+fun aboutMultipleDeclarations() {
+    val (age, name) = Student(1, "Multiple declarations")
+    println("Multiple declarations $name is $age years old")
+}
+//fun aboutDynamic(p: dynamic) {
+//    when {
+//        p is Student -> p.say("dynamic")
+//    }
+//}
+
+fun D.foo() {
+    println("ddddd")
+}
+
+fun C.foo() {
+    println("ccccc")
+}
+
+fun aboutDataObject() {
+    var dataObject = DataObject("小飞", 1)
+    var dataObjectC = dataObject.copy(age = 2)
+    println(dataObjectC.toString())
+}
+
+fun aboutObjectExp(any: Any) {
+    when {
+        any is Person -> any.say("aboutObjectExp is person")
+        any is Listener -> any.OnListener("aboutObjectExp Listener")
+    }
+}
+
+fun aboutExtent(c: C) {
+    c.foo()
+
+}
+
+//高阶函数 可以以函数为参数 并返回一个函数
+inline fun aboutHighFun(body: () -> String) {
+    println("aboutHighFun:" + body())
+}
+
+fun aboutInterface(listener: Any) {
+    when {
+        listener is Listener -> listener.OnListener("sb")
+    }
+
+}
+
+fun aboutInterface(listener: Listener) {
+    if (listener != null) {
+        listener.OnListener("sb")
+    }
 }
 
 fun aboutClass() {
@@ -51,6 +146,9 @@ fun aboutIf() {
     } else {
         println("b is max=$b")
         b
+    }
+    if (a > 0) {
+
     }
 }
 
